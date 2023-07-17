@@ -167,6 +167,7 @@ function(input, output, session) {
   datTrain1 <- GradDataV2[train, ]
   datTest1 <- GradDataV2[test, ]
   
+  isolate(
   if(!is.null(input$varsm)){
         vars <- input$varsm
         vars2 <- str_c(vars,collapse='+')
@@ -180,7 +181,7 @@ function(input, output, session) {
   
    Results <- as.data.frame(mrm$results)
    Results <- Results[,-1]
-   }
+   })
   })
 })
   
@@ -195,6 +196,7 @@ function(input, output, session) {
     datTrain1 <- GradDataV2[train, ]
     datTest1 <- GradDataV2[test, ]
     
+    isolate(
     if(!is.null(input$varsm)){
       
       vars <- input$varsm
@@ -217,7 +219,7 @@ function(input, output, session) {
     RMSE2<- tibble::rownames_to_column(RMSE2, "row_names")
     colnames(RMSE2)[1] <- ''
     RMSE2
-    }
+    })
     })
   })
   
@@ -232,6 +234,7 @@ function(input, output, session) {
     datTrain1 <- GradDataV2[train, ]
     datTest1 <- GradDataV2[test, ]
     ## will make a plot and a table here
+    isolate(
     if(!is.null(input$varsm)){
     vars <- input$varsm
     vars2 <- str_c(vars,collapse='+')
@@ -246,7 +249,7 @@ function(input, output, session) {
                                            n.minobsinnode=10))
   
   # plot fit
-  plot(boostFit) }
+  plot(boostFit) })
   })
   })
   
@@ -261,6 +264,7 @@ function(input, output, session) {
     datTrain1 <- GradDataV2[train, ]
     datTest1 <- GradDataV2[test, ]
     
+    isolate(
     if(!is.null(input$varsm)){
       vars <- input$varsm
       vars2 <- str_c(vars,collapse='+')
@@ -282,7 +286,8 @@ function(input, output, session) {
   RMSE2f <- RMSEf          
   RMSE2f<- tibble::rownames_to_column(RMSE2f, "row_names")
   colnames(RMSE2f)[1] <- ''
-  RMSE2f}
+  RMSE2f})
+  })
   })
   
   ## random forest output
@@ -300,43 +305,44 @@ function(input, output, session) {
       vars <- input$varsm
       vars2 <- str_c(vars,collapse='+')
       formula <- paste('Target ~',vars2)
-      form2 <- as.formula(formula)
-  random.forest.fit <- train(form2, data = datTrain1,
-                             method = "rf",
-                             preProcess = c("center", "scale"),
-                             trControl = trainControl(method = "cv", number = 5),
+     form2 <- as.formula(formula)
+     random.forest.fit <- train(form2, data = datTrain1,
+                            method = "rf",
+                           preProcess = c("center", "scale"),
+                           trControl = trainControl(method = "cv", number = 5),
                              tuneGrid = data.frame(mtry = 1:27))
-  
+   
   # plot fit
-  plot(random.forest.fit)
-  }
-  })
-  })
-  
-  observeEvent(input$submit,{
-  output$rforestt <- 
-    renderTable({
-    train <- sample(1:nrow(GradDataV2), size = nrow(GradDataV2)*input$prop)
-    test <- setdiff(1:nrow(GradDataV2), train)
-    
-    # training and testing subsets
-    datTrain1 <- GradDataV2[train, ]
-    datTest1 <- GradDataV2[test, ]
-    
-    if(!is.null(input$varsm)){
-      vars <- input$varsm
-      vars2 <- str_c(vars,collapse='+')
+   plot(random.forest.fit)
+   }
+   })
+   })
+   
+   observeEvent(input$submit,{
+   output$rforestt <- 
+     renderTable({
+     train <- sample(1:nrow(GradDataV2), size = nrow(GradDataV2)*input$prop)
+     test <- setdiff(1:nrow(GradDataV2), train)
+     
+     # training and testing subsets
+     datTrain1 <- GradDataV2[train, ]
+     datTest1 <- GradDataV2[test, ]
+     
+     isolate(
+     if(!is.null(input$varsm)){
+       vars <- input$varsm
+       vars2 <- str_c(vars,collapse='+')
       formula <- paste('Target ~',vars2)
       form2 <- as.formula(formula)
       random.forest.fit <- train(form2, data = datTrain1,
-                                 method = "rf",
-                                 preProcess = c("center", "scale"),
-                                 trControl = trainControl(method = "cv", number = 5),
-                                 tuneGrid = data.frame(mtry = 1:27))
+                                method = "rf",
+                                preProcess = c("center", "scale"),
+                                trControl = trainControl(method = "cv", number = 5),
+                                tuneGrid = data.frame(mtry = 1:27))
       
   #Run on test data
   random.forest.predict <- predict(random.forest.fit, newdata = datTest1)
-  
+   
   #Obtain RMSE from test set, which will be used in automated comparison
   random.forest.compare <- postResample(random.forest.predict, 
                                         obs = datTest1$Target)
@@ -345,8 +351,8 @@ function(input, output, session) {
   RMSErf2f<- tibble::rownames_to_column(RMSErf2f, "row_names")
   colnames(RMSErf2f)[1] <- ''
   RMSErf2f
-  }
-  })
-  })
-})
+   })
+   })
+   })
+  
 }
