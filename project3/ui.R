@@ -3,6 +3,8 @@ library(rmarkdown)
 library(tidyverse)
 library(ggplot2)
 library(caret)
+library(gbm)
+library(randomForest)
 library(DT)
 
 setwd("C:/Users/Sarah/Documents/project-3")
@@ -141,7 +143,7 @@ fluidPage(
   tabsetPanel(
     tabPanel("About",
              h2("Purpose"),
-             "The purpose of this apps is to produce exploratory data analysis on a dataset containing information on the graduation status of students at a higher education institution.",
+             "The purpose of this app is to produce exploratory data analysis on a dataset containing information on the graduation status of students at a higher education institution.",
              "We hope to explore what factors may influence a student's retention and eventual graduation from a University.  The user is able to produce three models that will predict graduation or ",
              "dropout status.",
              br(),

@@ -3,6 +3,8 @@ library(rmarkdown)
 library(tidyverse)
 library(ggplot2)
 library(caret)
+library(gbm)
+library(randomForest)
 library(DT)
 
 set.seed(1234)
