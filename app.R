@@ -7,7 +7,6 @@ library(gbm)
 library(randomForest)
 library(DT)
 
-setwd("C:/Users/Sarah/Documents/project-3")
 # read in dataset
 GradData <- read.csv(file="data.csv",sep=';')
 # creating a version of this data with variables that make sense
@@ -137,7 +136,7 @@ names(pocc) <- c('Student','Representatives of the Legislative Power and Executi
 
 
 # Define UI 
-fluidPage(
+ui <- fluidPage(
   
   
   tabsetPanel(
@@ -564,7 +563,7 @@ set.seed(1234)
 
 
 # Define server logic 
-function(input, output, session) {
+server <- function(input, output, session) {
   ## Code for image in About tab
   output$image1 <- renderImage({
     width<- "80%"
