@@ -60,10 +60,79 @@ for(i in 1:nrow(GradData)){
     GradDataV2[i,19]<- 'Yes'
   }
   else{GradDataV2[i,19]<-'No'}
+  # displaced
+  if(GradData[i,14]==1){
+    GradDataV2[i,14] <- 'Yes'
+  }
+  else{GradDataV2[i,14] <- 'No'}
+  # debtor
+  if(GradData[i,16]==1){
+    GradDataV2[i,16] <- 'Yes'
+  }
+  else{GradDataV2[i,16]<-'No'}
 }
 
 ## removing enrolled students
 GradDataV2 <- subset(GradDataV2, Target!='Enrolled')
+
+## 'class' variables as factors and not numeric
+GradDataV2$Course <- as.factor(GradDataV2$Course)
+GradDataV2$Application.mode <- as.factor(GradDataV2$Application.mode)
+GradDataV2$Application.order <- as.factor(GradDataV2$Application.order)
+GradDataV2$Previous.qualification <- as.factor(GradDataV2$Previous.qualification)
+GradDataV2$Nacionality<- as.factor(GradDataV2$Nacionality)
+GradDataV2$Mother.s.qualification <- as.factor(GradDataV2$Mother.s.qualification)
+GradDataV2$Mother.s.occupation <- as.factor(GradDataV2$Mother.s.occupation)
+GradDataV2$Father.s.qualification <- as.factor(GradDataV2$Father.s.qualification)
+GradDataV2$Father.s.occupation<- as.factor(GradDataV2$Father.s.occupation)
+GradDataV2$Displaced <- as.factor(GradDataV2$Displaced)
+GradDataV2$Debtor <- as.factor(GradDataV2$Debtor)
+
+## numeric variables as numeric and not character
+GradDataV2$Previous.qualification..grade. <- as.numeric(GradDataV2$Previous.qualification..grade.)
+GradDataV2$Admission.grade <- as.numeric(GradDataV2$Admission.grade)
+GradDataV2$Age.at.enrollment <- as.numeric(GradDataV2$Age.at.enrollment)
+GradDataV2$Curricular.units.1st.sem..credited. <- as.numeric(GradDataV2$Curricular.units.1st.sem..credited.)
+GradDataV2$Curricular.units.1st.sem..enrolled. <- as.numeric(GradDataV2$Curricular.units.1st.sem..enrolled.)
+GradDataV2$Curricular.units.1st.sem..evaluations.<- as.numeric(GradDataV2$Curricular.units.1st.sem..evaluations.)
+GradDataV2$Curricular.units.1st.sem..grade.<- as.numeric(GradDataV2$Curricular.units.1st.sem..grade.)
+GradDataV2$Curricular.units.1st.sem..without.evaluations. <- as.numeric(GradDataV2$Curricular.units.1st.sem..without.evaluations.)
+GradDataV2$Curricular.units.2nd.sem..credited.<- as.numeric(GradDataV2$Curricular.units.2nd.sem..credited.)
+GradDataV2$Curricular.units.2nd.sem..enrolled. <- as.numeric(GradDataV2$Curricular.units.2nd.sem..enrolled.)
+GradDataV2$Curricular.units.2nd.sem..evaluations.<- as.numeric(GradDataV2$Curricular.units.2nd.sem..evaluations.)
+GradDataV2$Curricular.units.2nd.sem..approved. <- as.numeric(GradDataV2$Curricular.units.2nd.sem..approved.)
+GradDataV2$Curricular.units.2nd.sem..grade. <- as.numeric(GradDataV2$Curricular.units.2nd.sem..grade.)
+GradDataV2$Curricular.units.2nd.sem..without.evaluations. <- as.numeric(GradDataV2$Curricular.units.2nd.sem..without.evaluations.)
+GradDataV2$Unemployment.rate <- as.numeric(GradDataV2$Unemployment.rate)
+GradDataV2$Inflation.rate <- as.numeric(GradDataV2$Inflation.rate)
+GradDataV2$GDP <- as.numeric(GradDataV2$GDP)
+
+## making lists for UI
+mode <- list('1','2','5','7','10','15','16','17','18','26','27','39','42','43','44','51','53','57')
+names(mode) <- c('1st Phase General Contingent',"Ordinance No. 612/94",'1st Phase - Special Contingent (Azores Island)','Holders of other  higher courses','Ordinance No. 854-B/99','International Student (bachelor)','1st phase - Special Continent (Madeira Island)','2nd Phase - General Contingent','3rd Phase - General Contingent','Ordinance No. 533-A/99, item b2 (Different Plan)','Ordinance No. 533-A/99, item b3 (Other institution)','Over 23 years old','Transfer','Change of course','Technological Specialization Diploma Holders','Change of Institution/Course','Short Cycle Diploma Holders','Change of Institution/Course (International)')
+
+class <- list('33','171','8014','9003','9070','9085','9119','9130','9147','9238','9254','9500','9556','9670','9773','9853','9991')
+names(class) <- c("Biofuel Production Technologies","Animation and Multimedia Design","Social Service (evening attendance)","Agronomy","Communication Design","Verterinary Nursing","Informatics Engineering","Equiniculture","Management","Social Service","Tourism","Nursing","Oral Hygiene","Advertising and Marketing Management","Journalism and Communication","Basic Education","Management (evening attendance)")
+
+pqal <- list('1','2','3','4','5','6','9','10','12','14','15','19','38','39','40','42','43')
+names(pqal) <- c('Secondary Education',"Higher Education - Bachelor's Degree",'High Education - degree',"Higher Education - Master's",'Higher Education - Doctorate','Frequency of Higher Education','12th Year of Schooling - not completed','11th Year of Schooling - not completed','Other - 11th Year of Schooling','10th Year of Schooling','10th Year of Schooling - Not Completed','Basic Education 3rd Cycle (9th/10th/11th year) or equiv.','Basic Education - 2nd Cycle (6th/7th/8th year) or equiv.','Technological Specialization Course','High Education - degree (1st Cycle)','Professional Higher Technical Course','Higher Education - Master (2nd Cycle)')
+
+nat <- list('1','2','6','11','13','14','17','21','22','24','25','26','32','41','62','100','101','103','105','108','109')
+names(nat) <- c('Portuguese','German','Spanish','Italian','Dutch','English','Lithuanian','Angolan','Cape Verdean','Guinean','Mozambican','Santomean','Turkish','Brazilian','Romanian','Moldova (Republic of)','Mexian','Ukrainian','Russian','Cuban','Colombian')
+
+mqal <- list('1','2','3','4','5','6','9','10','11','12','14','18','19','22','26','27','29','30','34','35','36','37','38','39','40','41','42','43','44')
+names(mqal) <- c('Secondary Education - 12th Year of Schooling or Eq.',"Higher Education - Bachelor's Degree",'Higher Education - Degree',"Higher Education - Master's",'Higher Education - Doctorate','Frequency of Higher Education','12th Year of Schooling - Not Completed','11th Year of Schooling - Not Completed','7th Year (Old)','Other - 11th Year of Schooling','10th Year of Schooling','General Commerce Course','Basic Education 3rd Cycle (9th/10th/11th Year) or Equiv.','Technical Professional Course','7th Year of Schooling','2nd Cycle of the General High School Course','9th Year of Schooling - Not Completed','8th Year of Schooling','Unknown',"Can't Read or Write",'Can read without having a 4th year of schooling','Basic Education 1st Cycle (4th/5th Year) or Equiv.','Basic Education 2nd Cycle (6th/7th/8th Year) or Equiv.','Technological Specialization Course','Higher Education - degree (1st cycle)','Specialized Higher Studies Course','Professional Higher Technical Course',"Higher Education - Master (2nd Cycle)",'Higher Education - Doctorate (3rd Cycle)')
+
+pqal <- list('1','2','3','4','5','6','9','10','11','12','13','14','18','19','20','22','25','26','27','29','30','31','33','34','35','36','37','38','39','40','41','42','43','44')
+names(pqal) <- c('Secondary Education - 12th Year of Schooling or Eq.',"Higher Education - Bachelor's Degree","Higher Education - Degree","Higher Education - Master's",'Higher Education - Doctorate','Frequency of Higher Education','12th Year of Schooling - Not Completed','11th Year of Schooling - Not Completed','7th Year (Old)','Other - 11th Year of Schooling','2nd Year Complementary High School Course','10th Year of Schooling','General Commerce Course','Basic Education 3rd Cycle (9th/10th/11th Year) or Equiv.','Complementary High School Course','Technical Professional Course','Complementary High School Course - Not Concluded','7th Year of Schooling','2nd Cycle of the General High School Course','9th Year of Schooling - Not Completed','8th Year of Schooling','General Course of Administration and Commerce','Supplementary Accounting and Administration','Unknown',"Can't read or write",'Can read without having a 4th year of schooling','Basic Education 1st Cycle (4th/5th year) or Equiv.','Basic Education - 2nd Cycle (6th/7th/8th Year) or Equiv.','Technological Specialization Course','Higher Education - degree (1st Cycle)','Specialized Higher Studies Course','Professional Higher Technical Course','Higher Education - Master (2nd Cycle)','Higher Education - Doctorate (3rd Cycle)')
+
+mocc <- list('0','1','2','3','4','5','6','7','8','9','10','90','99','122','123','125','131','132','134','141','143','144','151','152','153','171','173','175','191','192','193','194')
+names(mocc)<-c('Student','Representatives of the Legislative Power and Executive Bodies, Directors, Directors and Executive Managers','Specialists in Intellectual and Scientific Activities','Intermediate Level Technicians and Professions','Adminnistrative Staff','Personal Services, Security, and Safety Workers and Sellers','Farmers and Skilled Workers in Agriculture, Fisheries, and Forestry','Skilled Workers in Industry, Construction, and Craftsmen','Installation and Machine Operators and Assembly Workers','Unskilled Workers','Armed Forces Profesions','Other Situation ','(blank)','Health Professionals','Teachers','Specialists in Information and Communication Technologies','Intermediate Level Science and Engineeringn Technicians and Professions','Technicians and Professionals of Intermediate Level of Health','Intermediate Level Technicians from Legal, Social, Sports, Cultural, and Similar Services','Office Workers, Secretaries, in General and Data Processing Operators','Data, Accounting, Statistical, Financial Services, and Registry-related Operators','Other Administrative Support Staff','Personal Service Workers','Sellers','Personal Care Workers and the like','Skilled Construction Workes and the like, Except Electricians','Skilled Workers in Printing, Precision Instrument Manufacturing, Jewelers, Artisans, and the like','Workers in Food Processing, Woodworking, Clothing, and Other Industries and Crafts','Cleaning Workers','Unskilled Workers in Agriculture, Animal Production, Fisheries, and Forestry','Unskilled Workers in Extractive Industry, Construction, Manufacturing, and Transport','Meal Preparation Assistants')
+
+pocc <- list('0','1','2','3','4','5','6','7','8','9','10','90','99','101','102','103','112','114','121','122','123','124','131','132','134','135','141','143','144','151','152','153','154','161','163','171','172','174','175','181','182','183','192','193','194','195')
+names(pocc) <- c('Student','Representatives of the Legislative Power and Executive Bodies, Directors, Directors and Executive Managers','Specialists in Intellectual and Scientific Activities','Intermediate Level Technicians and Professions','Administrative Staff','Personal Services, Security, and Safety Workers and Sellers','Farmers and Skilled Workers in Agriculture, Fisheries, and Forestry','Skilled Workers in Industry, Construction, and Craftsmen','Installation and Machine Operators and Assembly Workers','Unskilled Workers','Armed Forces Professions','Other Situation','(blank)','Armed Forces Officers','Armed Forces Sergeants','Other Armed Forces personnel','Directors of Administrative and Commercial Services','Hotel, Catering, Trade and Other Services Directors','Specialists in the Physical Sciences, Mathematics, Engineering and Related Techniques','Health Professionals','Teachers','Specialists in Finance, Accounting, Administrative Organization, Public and Commercial Relations','Intermediate Level Science and Engineering Technicians and Professions','Technicians and Professinals of Intermediate Level of Health','Intermediate Level Technicians from Legal, Social, Sports, Cultural, and Similar Services','Information and Communication Technology Technicians','Office Workers, Secretaries in General and Data Processing Operators','Data, Accounting, Statistical, Financial Services, and Registry-related Operators','Other Administrative Support Staff','Personal Service Workers','Sellers','Personal Care Workers and the like','Protection and Security Services Personnel','Market-oriented Farmers and Skilled Agricultural and Animal Production Workers','Farmers, Livestock Keepers, Fishermen, Hunters and Gatherers, Subsistence','Skilled Construction Workers and the like, Except Electricians','Skilled Workers in Metallurgy, Metalworking, and Similar','Skilled Workers in Electricity and Electronics','Workers in Food Processing, Woodworking, Clothing, and Other Industries and Crafts','Fixed Plant and Machine Operators','Assembly Workers','Vehicle Drivers and Mobile Equipment Operators','Unskilled Workers in Agriculture, Animal Production, Fisheries and Forestry','Unskilled Workers in Extractive Industry, Construction, Manufacturing and Transport','Meal Preparation Assistants','Street Vendors (except food) and Street Service Providers')
+
+
 
 # Define UI 
 fluidPage(
@@ -287,6 +356,7 @@ fluidPage(
                           choiceValues=c("Marital.status","Application.mode","Application.order","Course","Daytime.evening.attendance.","Previous.qualification","Previous.qualification..grade.","Nacionality","Mother.s.qualification","Father.s.qualification","Mother.s.occupation","Father.s.occupation","Admission.grade","Displaced","Educational.special.needs","Debtor","Tuition.fees.up.to.date","Gender","Scholarship.holder","Age.at.enrollment","International","Curricular.units.1st.sem..grade.","Curricular.units.2nd.sem..grade.","Unemployment.rate","Inflation.rate","GDP"))
                           , actionButton('submit',"Submit Model")),
             mainPanel(h4("Generalized Linear Model Output"),
+                      DTOutput('coeff1'),
                       tableOutput("modfit1"),
                       h5("Results from Prediction with Test Set"),
                       tableOutput("modfit12"),
@@ -303,21 +373,189 @@ fluidPage(
                       ))),
     conditionalPanel(condition="input.modeling=='Prediction'",
             sidebarLayout(
-              sidebarPanel("Prediction"),
-            mainPanel("Prediction","You should give the user a way to use one of the models for prediction. That
-                        is, they should be able to select the values of the predictors and obtain a prediction for the
-                        response."))),
+              sidebarPanel(h3("Prediction"),
+                           numericInput("prop2","Pick Proportion of Data for Training Set",value=.80,min=.01,max=.99),
+                           radioButtons("pred","Select a Model for Prediction",choices=c("Generalized Linear Regression","Classification Tree","Random Forest")),
+                           h4("Pick Variables for Models"),
+                           checkboxInput('marpred','Marital Status'),
+                           checkboxInput('appmode',"Application Mode"),
+                           checkboxInput('appord',"Application Order"),
+                           checkboxInput('course',"Course"),
+                           checkboxInput('dteatten',"Daytime or Evening Attendance"),
+                           checkboxInput('prevq','Previous Qualification'),
+                           checkboxInput('prevqg','Previous Qualification Grade'),
+                           checkboxInput('nac','Nationality'),
+                           checkboxInput('mq',"Mother's Qualification"),
+                           checkboxInput('fq',"Father's Qualification"),
+                           checkboxInput('mo',"Mother's Occupation"),
+                           checkboxInput('fo',"Father's Occupation"),
+                           checkboxInput('ag','Admission Grade'),
+                           checkboxInput('dp','Displaced'),
+                           checkboxInput('esn','Educational Special Needs'),
+                           checkboxInput('deb','Debtor'),
+                           checkboxInput('tuit','Tuition and Fees Up to Date'),
+                           checkboxInput('gen','Gender'),
+                           checkboxInput('schol','Scholarship Holder'),
+                           checkboxInput('age','Age At Enrollment'),
+                           checkboxInput('int','International'),
+                           checkboxInput('cfsc',"Curricular Units 1st Semester (Credited)"),
+                           checkboxInput('cfse','Curricular Units 1st Semester (Enrolled)'),
+                           checkboxInput('cfsev','Curricular Units 1st Semester (Evaluations)'),
+                           checkboxInput('cfsa','Curricular Units 1st Semester (Approved'),
+                           checkboxInput('cfsg','Curricular Units 1st Semester Grade'),
+                           checkboxInput('cfswoe','Curricular Units 1st Semester (Without Evaluation'),
+                           checkboxInput('cssc','Curricular Units 2nd Semester (Credited)'),
+                           checkboxInput('csse','Curricular Units 2nd Semester (Enrolled)'),
+                           checkboxInput('cssev','Curricular Units 2nd Semester (Evaluations)'),
+                           checkboxInput('cssa','Curricular Units 2nd Semester (Approved)'),
+                           checkboxInput('cssg','Curricular Units 2nd Semester Grade'),
+                           checkboxInput('csswoe','Curricular Units 2nd Semester (Without Evaluation'),
+                           checkboxInput('ur','Unemployment Rate'),
+                           checkboxInput('ir','Inflation Rate'),
+                           checkboxInput('gdp','GDP')
+                           
+                         
+                           ),
+            mainPanel(
+                      conditionalPanel(condition="input.marpred==1", 
+                                       selectInput("marstat","Select Marital Status",choices=c("Single","Married","Widower","Divorced","Facto Union","Legally Separated"))),
+                      conditionalPanel(condition="input.appmode==1",
+                                       selectInput('appstat','Select Application Mode',choices=mode)),
+                      conditionalPanel(condition="input.appord==1",
+                                       selectInput("appordpred","Select Application Order",choices=c("0",'1','2','3','4','5','6','7','8','9'))),
+                      conditionalPanel(condition="input.course==1",
+                                       selectInput('coursep',"Select Course",choices=class)),
+                      conditionalPanel(condition="input.dteatten",
+                                       selectInput('dtep',"Daytime or Evening Attendance",choices=c("Daytime","Evening"))),
+                      conditionalPanel(condition="input.prevq",
+                                       selectInput('prevqp',"Previous Qualification",choices=pqal)),
+                      conditionalPanel(condition='input.prevqg',
+                                       numericInput('prevqgp','Previous Qualification Grade',100,min=0,max=200)),
+                      conditionalPanel(condition="input.nac==1",
+                                       selectInput('nacp',"Nationality",choices=nat)),
+                      conditionalPanel(condition='input.mq==1',
+                                       selectInput('mqp',"Mother's Qualification",choices=mqal)),
+                      conditionalPanel(condition='input.fq==1',
+                                       selectInput('fqp',"Father's Qualification",choices=pqal)),
+                      conditionalPanel(condition='input.mo==1',
+                                       selectInput("mop","Mother's Occupation",choices=mocc)),
+                      conditionalPanel(condition='input.fo==1',
+                                       selectInput('fop',"Father's Occupation",choices=pocc)),
+                      conditionalPanel(condition='input.ag==1',
+                                      numericInput('agp','Admission Grade',100,min=0,max=200)),
+                      conditionalPanel(condition='input.dp==1',
+                                       selectInput('dpp','Displaced',choices=c('Yes','No'))),
+                      conditionalPanel(condition='input.esn==1',
+                                       selectInput('esnp','Educational Special Needs',choices=c('Yes','No'))),
+                      conditionalPanel(condition='input.deb==1',
+                                       selectInput('debp','Debtor',choices=c('Yes','No'))),
+                      conditionalPanel(condition='input.tuit==1',
+                                       selectInput('tuitp','Tuition and Fees Up to Date',choices=c('Yes','No'))),
+                      conditionalPanel(condition='input.gen==1',
+                                       selectInput('genp','Gender',choices=c("Male","Female"))),
+                      conditionalPanel(condition='input.schol==1',
+                                       selectInput('scholp','Scholarship Holder',choices=c('Yes','No'))),
+                      conditionalPanel(condition='input.age==1',
+                                       numericInput('agep','Age',18,min=0,max=72,step=1)),
+                      conditionalPanel(condition='input.int==1',
+                                       selectInput('intp','International',choices=c('Yes','No'))),
+                      conditionalPanel(condition='input.cfsc==1',
+                                       numericInput('cfscp','Curricular Units 1st Semester (Credited)',12,min=0,max=20,step=1)),
+                      conditionalPanel(condition='input.cfse==1',
+                                       numericInput('cfsep','Curricular Units 1st Semester (Enrolled)',12,min=0,max=26,step=1)),
+                      conditionalPanel(condition="input.cfsev==1",
+                                       numericInput('cfsevp','Curricular Units 1st Semester (Evaluations)',13,min=0,max=26,step=1)),
+                      conditionalPanel(condition='input.cfsa==1',
+                                       numericInput('csfap','Curricular Units 1st Semester (Approved)',13,min=0,max=26,step=1)),
+                      conditionalPanel(condition='input.cfsg==1',
+                                       numericInput('cfsgp','Curricular Units 1st Semester Grade',14,min=0,max=20,step=1)),
+                      conditionalPanel(condition='input.cfswoe==1',
+                                       numericInput('cfswoep','Curricular Units 1st Semester (Without Evaluations)',0,min=0,max=12,step=1)),
+                      conditionalPanel(condition='input.cssc==1',
+                                       numericInput('csscp','Curricular Units 2nd Semester (Credited)',12,min=0,max=20,step=1)),
+                      conditionalPanel(condition='input.csse==1',
+                                       numericInput('cssep','Curricular Units 2nd Semester (Enrolled)',12,min=0,max=26,step=1)),
+                      conditionalPanel(condition="input.cssev==1",
+                                       numericInput('cssevp','Curricular Units 2nd Semester (Evaluations)',13,min=0,max=26,step=1)),
+                      conditionalPanel(condition='input.cssa==1',
+                                       numericInput('csap','Curricular Units 2nd Semester (Approved)',13,min=0,max=26,step=1)),
+                      conditionalPanel(condition='input.cssg==1',
+                                       numericInput('cssgp','Curricular Units 2nd Semester Grade',14,min=0,max=20)),
+                      conditionalPanel(condition='input.csswoe==1',
+                                       numericInput('csswoep','Curricular Units 2nd Semester (Without Evaluations)',0,min=0,max=12,step=1)),
+                      conditionalPanel(condition='input.ur==1',
+                                       numericInput('urp','Unemployment Rate',10,min=7,max=17)),
+                      conditionalPanel(condition='input.ir==1',
+                                       numericInput('irp','Inflation Rate',1, min=-0.9,max=4)),
+                      conditionalPanel(condition='input.gdp==1',
+                                       numericInput('gdpp','GDP',0,min=-4.06,max=3.51)),
+                      actionButton('submit2','Submit Prediction'),
+                      DTOutput('predglm'),
+                      DTOutput('predboost'),
+                      DTOutput('predrf')
+                        
+                      ))),
     )
             ,
     
-    tabPanel("Data","The user should be able to
-               ∗ Scroll through the data set
-               ∗ Subset this data set (rows and columns)
-               ∗ Save the (possibly subsetted) data as a file (.csv is fine but whatever you’d like)")
+    tabPanel("Data",
+             br(),
+             "View the dataset used in this app below.  Choose variables to subset the columns, and 
+             choose the numbers of rows (observations) you would like to view.",
+             "To download the data you choose, press the download button.",
+             sidebarLayout(
+             sidebarPanel(h4("Pick Variables for Dataset"),
+             checkboxInput('marpred2','Marital Status',value=TRUE),
+             checkboxInput('appmode2',"Application Mode",value=TRUE),
+             checkboxInput('appord2',"Application Order",value=TRUE),
+             checkboxInput('course2',"Course",value=TRUE),
+             checkboxInput('dteatten2',"Daytime or Evening Attendance",value=TRUE),
+             checkboxInput('prevq2','Previous Qualification',value=TRUE),
+             checkboxInput('prevqg2','Previous Qualification Grade',value=TRUE),
+             checkboxInput('nac2','Nationality',value=TRUE),
+             checkboxInput('mq2',"Mother's Qualification",value=TRUE),
+             checkboxInput('fq2',"Father's Qualification",value=TRUE),
+             checkboxInput('mo2',"Mother's Occupation",value=TRUE),
+             checkboxInput('fo2',"Father's Occupation",value=TRUE),
+             checkboxInput('ag2','Admission Grade',value=TRUE),
+             checkboxInput('dp2','Displaced',value=TRUE),
+             checkboxInput('esn2','Educational Special Needs',value=TRUE),
+             checkboxInput('deb2','Debtor',value=TRUE),
+             checkboxInput('tuit2','Tuition and Fees Up to Date',value=TRUE),
+             checkboxInput('gen2','Gender',value=TRUE),
+             checkboxInput('schol2','Scholarship Holder',value=TRUE),
+             checkboxInput('age2','Age At Enrollment',value=TRUE),
+             checkboxInput('int2','International',value=TRUE),
+             checkboxInput('cfsc2',"Curricular Units 1st Semester (Credited)",value=TRUE),
+             checkboxInput('cfse2','Curricular Units 1st Semester (Enrolled)',value=TRUE),
+             checkboxInput('cfsev2','Curricular Units 1st Semester (Evaluations)',value=TRUE),
+             checkboxInput('cfsa2','Curricular Units 1st Semester (Approved)',value=TRUE),
+             checkboxInput('cfsg2','Curricular Units 1st Semester Grade',value=TRUE),
+             checkboxInput('cfswoe2','Curricular Units 1st Semester (Without Evaluation',value=TRUE),
+             checkboxInput('cssc2','Curricular Units 2nd Semester (Credited)',value=TRUE),
+             checkboxInput('csse2','Curricular Units 2nd Semester (Enrolled)',value=TRUE),
+             checkboxInput('cssev2','Curricular Units 2nd Semester (Evaluations)',value=TRUE),
+             checkboxInput('cssa2','Curricular Units 2nd Semester (Approved)',value=TRUE),
+             checkboxInput('cssg2','Curricular Units 2nd Semester Grade',value=TRUE),
+             checkboxInput('csswoe2','Curricular Units 2nd Semester (Without Evaluation)',value=TRUE),
+             checkboxInput('ur2','Unemployment Rate',value=TRUE),
+             checkboxInput('ir2','Inflation Rate',value=TRUE),
+             checkboxInput('gdp2','GDP',value=TRUE),
+             checkboxInput('tar','Target',value=TRUE),
+             h4('Pick Number of Observations'),
+             numericInput('rows','Number of Rows',value=3630,min=1,max=3630),
+             downloadButton('download','Download')
+             ),
+             mainPanel(DTOutput('dt')
+               
+               
+             )
+             )
+              
              
 )
 )
-
+)
 
 
     
