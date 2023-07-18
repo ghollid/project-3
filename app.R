@@ -151,7 +151,7 @@ ui <- fluidPage(
              br(),
              br(),br(),
              h2("Data and Source"),
-             "The data contains 4,424 observations with demographic and other information including the target variable - graduate or dropout status.",
+             "The data contains 3,630 observations with demographic and other information including the target variable - graduate or dropout status.",
              "This data was taken from the UCI Machine Learning Repostory.",
              h2("Tab Purposes"),
              h4("Data Exploration"),
