@@ -368,7 +368,8 @@ function(input, output, session) {
   RMSE2f <- RMSEf          
   RMSE2f<- tibble::rownames_to_column(RMSE2f, "row_names")
   colnames(RMSE2f)[1] <- ''
-  RMSE2f})})
+  RMSE2f
+  })})
   })
   })
   
@@ -438,7 +439,8 @@ function(input, output, session) {
   RMSErf2f <- RMSErff
   RMSErf2f<- tibble::rownames_to_column(RMSErf2f, "row_names")
   colnames(RMSErf2f)[1] <- ''
-  RMSErf2f })
+  RMSErf2f 
+     })
     })
    })
   })
